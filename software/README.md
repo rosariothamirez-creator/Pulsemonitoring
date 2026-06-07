@@ -11,13 +11,13 @@ The software architecture follows a modular pipeline approach, allowing each sta
 ## Processing Pipeline
 
 CSV Data
-↓
+->
 Acquisition
-↓
+->
 Processing
-↓
+->
 Interpretation
-↓
+->
 Visualization
 
 ---
