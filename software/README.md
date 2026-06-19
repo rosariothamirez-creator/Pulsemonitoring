@@ -27,7 +27,7 @@ The architecture is built upon a modular, event-driven pipeline. This ensures hi
    ▼
 [Interactive Dashboard] ──────> (On-Demand Rendering & UI) 
 ```
- 
+---
 
 ## Main Modules
 
