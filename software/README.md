@@ -1,54 +1,112 @@
 # Software Architecture
 
 ## Overview
-The software subsystem (`geonode_analyzer.py`) acts as the analytical core of the project. It executes real-time kinematic transformations and spectral analysis on the physical measurements acquired by the hardware subsystem, generating deterministic assessments for structural integrity and seismology.
 
-The architecture is built upon a modular, event-driven pipeline. This ensures high cohesion and low coupling, allowing discrete stages—from data ingestion to normative evaluation—to be independently audited, optimized, and tested.
+The software subsystem is split across three components (see
+`docs/architecture.md` for the full system view): `servidor.py` (receives
+data from the hardware and writes it to CSV), `geonode_analyzer.py` (the
+analytical core and dashboard, described in this document), and a
+separate demonstration website. This document covers `geonode_analyzer.py`
+specifically.
+
+`geonode_analyzer.py` performs kinematic transformations and spectral
+analysis on the data written to `eventos/amostras.csv`, generating
+Environmental and Seismic assessments on demand, and provides the Tkinter
+graphical interface used to trigger and view those assessments.
 
 ---
 
-## Processing Pipeline
+## Processing pipeline
 
 ```text
-[Raw Sensor Data (m/s²)] 
+[eventos/amostras.csv]
    │
    ▼
-[Data Acquisition] ───────> (Timestamp Reconstruction & Live Polling)
+[Event listing] ──────────────> (Auto-refreshing list, polled every 10s)
+   │
+   ▼  (operator selects an event + module)
+[Kinematic integration] ──────> (Cumulative sum + drift removal)
    │
    ▼
-[Digital Signal Processing] ──> (Kinematic Integration & Least-Squares Detrending)
+[Spectral transformation] ────> (Fast Fourier Transform — FFT)
    │
    ▼
-[Spectral Transformation] ────> (Fast Fourier Transform - FFT)
+[Normative interpretation] ───> (NP 2074 / DIN 4150-3 / BS 5228 / ISO 2631 / Mercalli)
    │
    ▼
-[Normative Interpretation] ───> (NP 2074 / DIN 4150-3 / Mercalli Mapping)
-   │
-   ▼
-[Interactive Dashboard] ──────> (On-Demand Rendering & UI) 
+[Report rendering] ───────────> (Matplotlib report in a new window)
 ```
+
+Note: timestamp reconstruction (relative device time → real wall-clock
+time) happens in `servidor.py`, before the data reaches this file — see
+`docs/software.md` for that logic. `geonode_analyzer.py` consumes
+timestamps that are already resolved.
+
 ---
 
-## Main Modules
+## Main modules
 
-### 1. Acquisition
-Handles the asynchronous reading of the continuous CSV data stream.
-* **Live Feed Polling:** Implements a non-blocking background loop that scans for new hardware triggers without halting the main thread.
-* **Temporal Reconstruction:** Intercepts relative hardware uptime payloads (MM:SS.f) and fuses them with the system's absolute clock, reconstructing high-precision timestamps (down to the millisecond) while avoiding Base-60 math errors.
+### 1. Event listing and auto-refresh
 
-### 2. Digital Signal Processing
-Transforms the raw physical data into mathematically viable dimensions using the `scipy` and `numpy` stacks.
-* **Kinematic Integration:** Converts triaxial raw acceleration (m/s²) into structural velocity (mm/s) via cumulative numerical integration.
-* **Drift Mitigation:** Applies linear detrending filters to eliminate cumulative algorithmic drift and hardware offset, anchoring the baseline to the zero-axis.
-* **Spectral Analysis:** Executes a Fast Fourier Transform (FFT) to convert time-domain signals into frequency-domain spectra, isolating the Dominant Frequency (Hz) of the structural excitation.
+- The Tkinter dashboard reads `eventos/amostras.csv` and lists detected
+  events, grouped by `evento_id`.
+- A background refresh loop (`self.root.after(10000, self.auto_refresh)`)
+  re-reads the CSV every 10 seconds without blocking the UI, so newly
+  arrived events appear automatically. This refresh applies to the event
+  **list** — generating an actual report is a separate, on-demand action
+  triggered by the operator (see below), not something the auto-refresh
+  loop does on its own.
 
-### 3. Normative Interpretation
-Contextualizes the processed arrays against a comprehensive suite of established civil engineering, environmental, and seismological frameworks depending on the selected operational mode:
-* **Structural Vibration (PVS & PPV):** Evaluates frequency-dependent kinematic limits dictated by the Portuguese standard **NP 2074** and the German standard **DIN 4150-3** to assess potential structural damage.
-* **Human Comfort & Occupational Exposure:** Applies specific thresholds for rotating machinery (**BS 6472-1** / ISO 2631-2) and strict environmental control limits (e.g., 0.15 mm/s for continuous ambient vibrations and 0.30 mm/s for impulsive detonations).
-* **Seismological Module:** Maps the Peak Ground Velocity (PGV) directly to the scientific **Modified Mercalli Intensity Scale** (based on Wald et al., 1999), providing immediate macroscopic hazard assessments.
+### 2. Digital signal processing
+
+Implemented with `numpy` and `scipy`, executed when the operator requests
+a report for a specific event (not continuously):
+
+- **Kinematic integration** — converts triaxial raw acceleration (m/s²)
+  into velocity (mm/s) via cumulative numerical integration
+  (`np.cumsum(accel_ms2) * dt`).
+- **Drift mitigation** — applies linear detrending (`scipy.signal.detrend`)
+  to remove the cumulative drift introduced by numerical integration,
+  anchoring the velocity baseline before unit conversion.
+- **Spectral analysis** — runs a Fast Fourier Transform (`scipy.fft`) on
+  the velocity signal to obtain the amplitude spectrum and the dominant
+  frequency, used by the normative interpretation step.
+
+See `docs/software.md` for the exact function and line-by-line breakdown.
+
+### 3. Normative interpretation
+
+Classifies the processed signal according to the operational mode selected
+by the operator:
+
+- **Environmental (structural vibration):** evaluates PVS against
+  NP 2074:2015 and PPV against DIN 4150-3:2016, using frequency-band and
+  structure-class lookup tables (see `docs/standards.md` for the exact
+  bands). Also applies the fixed-threshold checks for BS 5228-2 / ISO
+  2631-2 (0.15–0.30 mm/s) and BS 6472-1 (1.0 mm/s, rotating machinery).
+- **Seismic:** maps Peak Ground Velocity (PGV, vertical axis) to a
+  Modified Mercalli Intensity estimate, using the empirical relationship
+  from Wald et al. (1999) — see `docs/references.md`.
 
 ### 4. Visualization & GUI
-Provides an interactive, low-latency graphical interface built with `Tkinter` and `Matplotlib`.
-* **On-Demand Rendering:** Generates complex, multi-plot analytical reports (Sismograms, FFT Spectra, Kinematic curves) purely in-memory. This architectural decision prevents disk I/O bottlenecks and ensures real-time responsiveness.
-* **Dynamic Thresholding:** Allows the operator to inject simulated threshold boundaries directly into the raw data visualization to validate hardware trigger efficacy visually.
+
+An interactive graphical interface built with `Tkinter` and `Matplotlib`.
+
+- **On-demand rendering:** generates the time-domain and frequency-domain
+  report plots in memory when the operator requests them, with no
+  intermediate files written to disk.
+- **Simulated threshold overlay ("Threshold V2.0"):** the operator can
+  type a value (default 1.5 m/s²) into a field in the "Signal" report
+  view; this draws two dashed horizontal reference lines (±threshold) on
+  top of the already-recorded acceleration signal. This is a visual,
+  after-the-fact comparison tool — it overlays a candidate detection
+  threshold onto data that has already been captured, to help reason
+  about what the hardware's trigger level should be. It does not
+  retroactively change which events were detected, and it does not
+  communicate back to the hardware.
+
+## Known limitations
+
+- Reports are generated on demand per selected event; 
+- See `docs/validation.md` for the full list of validated vs. unvalidated
+  capabilities.
