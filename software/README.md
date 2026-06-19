@@ -13,7 +13,7 @@ The architecture is built upon a modular, event-driven pipeline. This ensures hi
 [Raw Sensor Data (m/s²)] 
    │
    ▼
-[Data Ingestion] ───────> (Timestamp Reconstruction & Live Polling)
+[Data Acquisition] ───────> (Timestamp Reconstruction & Live Polling)
    │
    ▼
 [Digital Signal Processing] ──> (Kinematic Integration & Least-Squares Detrending)
