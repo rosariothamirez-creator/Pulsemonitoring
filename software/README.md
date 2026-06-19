@@ -9,7 +9,7 @@ The architecture is built upon a modular, event-driven pipeline. This ensures hi
 
 ## Processing Pipeline
 
-```text`
+```text
 [Raw Sensor Data (m/s²)] 
    │
    ▼
@@ -26,8 +26,8 @@ The architecture is built upon a modular, event-driven pipeline. This ensures hi
    │
    ▼
 [Interactive Dashboard] ──────> (On-Demand Rendering & UI) 
-
---- 
+```
+ 
 
 ## Main Modules
 
