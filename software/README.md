@@ -25,8 +25,9 @@ The architecture is built upon a modular, event-driven pipeline. This ensures hi
 [Normative Interpretation] ───> (NP 2074 / DIN 4150-3 / Mercalli Mapping)
    │
    ▼
-[Interactive Dashboard] ──────> (On-Demand Rendering & UI)
+[Interactive Dashboard] ──────> (On-Demand Rendering & UI) 
 
+--- 
 
 ## Main Modules
 
