@@ -66,7 +66,7 @@ an accurate record, not a polished claim.
 
 | Capability | Status |
 |---|---|
-| 475 Hz acquisition | Validated |
+| High-Frequency Acquisition & Dynamic $\Delta t$ | Validated |
 | Acceleration to velocity conversion | Validated |
 | FFT / dominant frequency | Validated |
 | Environmental classification (4 standards) | Validated (logic); only tested at close range |
