@@ -2,7 +2,7 @@
 dashboard_gui.py - Interface Gráfica de Gestão e Controlo (Dashboard)
 ===================================================================
 Atua como o orquestrador principal da aplicação (Frontend).
-Gere a interface em Tkinter, a leitura assíncrona do fluxo de dados (Live Feed)
+Gera a interface em Tkinter, a leitura assíncrona do fluxo de dados (Live Feed)
 e reencaminha os eventos selecionados para os motores de renderização específicos.
 """
 
