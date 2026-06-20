@@ -1,53 +1,40 @@
 """
-amplitude_time_plot.py - Motor de Renderização no Domínio do Tempo
+amplitude_time_plot.py - Renderização no Domínio do Tempo
 ===================================================================
-Gera a representação visual (Sismograma) da cinemática estrutural.
-Plota os vetores de velocidade ortogonais e injeta os limites
-normativos dinâmicos para validação visual imediata de conformidade.
+Gera os sismogramas e análises cinemáticas, aplicando os temas
+escuros e limites normativos definidos na arquitetura principal.
 """
 
-import matplotlib.pyplot as plt
+def desenhar_sismograma_ambiental(ax, t_s, vx, vy, vz, linha_analise, metrica, limite_atual, norma, estrutura):
+    """ Desenha o gráfico de velocidade no tempo (Módulo Ambiental) """
+    ax.set_facecolor("#161B22")
+    ax.tick_params(colors="#8B949E")
+    ax.grid(True, color="#21262D", alpha=0.5)
 
-def plotar_sismograma(tempo, vx, vy, vz, limite_normativo=None, titulo="Análise Cinemática (Sismograma)"):
-    """
-    Renderiza as curvas de velocidade (mm/s) no domínio do tempo.
+    if norma == "NP 2074":
+        ax.plot(t_s, vx, color='#4dd2ff', label='Eixo X', alpha=0.5)
+        ax.plot(t_s, vy, color='#00ff00', label='Eixo Y', alpha=0.5)
+        ax.plot(t_s, vz, color='#ff9900', label='Eixo Z', alpha=0.5)
+        ax.plot(t_s, linha_analise, color='white', linewidth=2, label=metrica)
+        ax.set_title(f"Análise Tri-Ortogonal ({norma} - {estrutura})", fontweight='bold', color='white')
+    else:
+        ax.plot(t_s, vz, color='#555555', label='Velocidade Eixo Z', alpha=0.7)
+        ax.plot(t_s, linha_analise, color='#3399ff', linewidth=2, label=metrica)
+        ax.set_title(f"Análise de Vibração PPV ({norma} - {estrutura})", fontweight='bold', color='white')
+
+    ax.axhline(y=limite_atual, color='#ff3333', linestyle='--', linewidth=2, label=f'Limite: {limite_atual} mm/s')
+    ax.set_ylabel("Velocidade (mm/s)")
+    ax.legend(loc='upper right', facecolor="#21262D", labelcolor="white")
+
+def desenhar_sismograma_sismico(ax, t_s, vz, pgv, cor_mercalli, grau_mercalli):
+    """ Desenha o Sismograma com impacto macrossísmico (PGV) """
+    ax.set_facecolor("#161B22")
+    ax.tick_params(colors="#8B949E")
+    ax.grid(True, color="#21262D", alpha=0.5)
+
+    ax.plot(t_s, vz, color='white', linewidth=1.5, label='Sismograma (PGV - Eixo Z)')
+    ax.axhspan(-pgv, pgv, color=cor_mercalli, alpha=0.4, label=f'Intensidade: {grau_mercalli}')
     
-    Parâmetros:
-    tempo            : Array temporal relativo (s).
-    vx, vy, vz       : Arrays de velocidade em cada eixo (mm/s).
-    limite_normativo : Float (opcional) indicando o limite de alerta (mm/s).
-    titulo           : String para o cabeçalho do gráfico.
-    
-    Retorna:
-    fig : Objeto Figure do Matplotlib renderizado em memória.
-    """
-    # Inicializa a figura com proporções otimizadas para ecrã panorâmico
-    fig, ax = plt.subplots(figsize=(10, 5))
-    
-    # Plotagem cinemática triaxial com paleta de cores de alto contraste
-    ax.plot(tempo, vx, label="Eixo X (Transversal)", color='#1f77b4', linewidth=1.2, alpha=0.85)
-    ax.plot(tempo, vy, label="Eixo Y (Longitudinal)", color='#ff7f0e', linewidth=1.2, alpha=0.85)
-    ax.plot(tempo, vz, label="Eixo Z (Vertical)", color='#2ca02c', linewidth=1.2, alpha=0.85)
-    
-    # Injeção dinâmica do threshold de conformidade (Norma Ambiental)
-    if limite_normativo is not None:
-        ax.axhline(y=limite_normativo, color='red', linestyle='--', linewidth=1.5, 
-                   label=f"Limite Legal ({limite_normativo:.2f} mm/s)")
-        # Injeta o limite inferior espelhado para ondas negativas
-        ax.axhline(y=-limite_normativo, color='red', linestyle='--', linewidth=1.5, alpha=0.5)
-        
-    # Formatação académica do layout
-    ax.set_title(titulo, fontsize=12, fontweight='bold')
-    ax.set_xlabel("Tempo Relativo [s]", fontsize=10)
-    ax.set_ylabel("Velocidade Cinemática [mm/s]", fontsize=10)
-    
-    # Adiciona uma grelha leve para facilitar a leitura dos picos
-    ax.grid(True, linestyle=':', alpha=0.6)
-    
-    # Posiciona a legenda para não ocultar picos iniciais
-    ax.legend(loc='upper right', fontsize=9, framealpha=0.9)
-    
-    # Ajusta as margens para não haver cortes na exportação para PDF
-    fig.tight_layout()
-    
-    return fig
+    ax.set_title("Sismograma no Domínio do Tempo", fontweight='bold', color='white')
+    ax.set_ylabel("Velocidade (mm/s)")
+    ax.legend(loc='upper right', facecolor="#21262D", labelcolor="white")
