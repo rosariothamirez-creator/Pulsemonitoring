@@ -1,4 +1,14 @@
+# ==========================================
+# PULSE - Python Dependencies
+# ==========================================
+
+# 1. Backend Server
+Flask
+
+# 2. Digital Signal Processing (DSP) & Math
 numpy
-pandas
 scipy
+pandas
+
+# 3. Visualization & Reporting
 matplotlib
