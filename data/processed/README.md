@@ -32,16 +32,10 @@ numerical exports.
   Intensity classification.
 
 
-## Important caveat on the measured values shown
+## Important caveat on the measured values
 
-All four report images were generated from real events captured by the
-prototype, but the test impacts (hammer strikes, dropped objects) were
-performed **very close to the sensor**. This produced PPV/PVS values far
-above the regulatory limits in every case (129–156 mm/s against limits of
-0.3–3.0 mm/s). These results validate that the detection, integration, and
-classification logic work correctly end-to-end — they do not represent
-typical real-world vibration levels at regulated distances. See
-`docs/validation.md` for the full discussion.
+All reporting images were generated from real test events captured by the prototype. However, these impacts were induced **very close to the sensor** (e.g., mechanical impacts centimeters away from the sensor). 
 
-See `docs/software.md` for the exact code and `docs/standards.md` for how
-the dominant frequency is used in the threshold lookup.
+Consequently, this generated extreme Peak Particle Velocities (PPV) far exceeding regulatory boundaries (e.g., 129–156 mm/s vs. the standard 0.3–3.0 mm/s limits). These outputs strictly validate the algorithmic integrity of the integration, detrending, and thresholding logic; they do not represent macroscopic real-world attenuation scenarios. See `docs/validation.md` for the full technical discussion.
+
+See `docs/software.md` for the exact integration code and `docs/standards.md` for how the dominant frequency is applied in the threshold lookup matrix.
