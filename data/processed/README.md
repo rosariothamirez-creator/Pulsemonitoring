@@ -36,6 +36,6 @@ numerical exports.
 
 All reporting images were generated from real test events captured by the prototype. However, these impacts were induced **very close to the sensor** (e.g., mechanical impacts centimeters away from the sensor). 
 
-Consequently, this generated extreme Peak Particle Velocities (PPV) far exceeding regulatory boundaries (e.g., 129–156 mm/s vs. the standard 0.3–3.0 mm/s limits). These outputs strictly validate the algorithmic integrity of the integration, detrending, and thresholding logic; they do not represent macroscopic real-world attenuation scenarios. See `docs/validation.md` for the full technical discussion.
+Consequently, this generated extreme Peak Particle Velocities (PPV) far exceeding regulatory boundaries (e.g., 129–156 mm/s vs. the standard 1.5–50 mm/s limits). These outputs strictly validate the algorithmic integrity of the integration, detrending, and thresholding logic; they do not represent macroscopic real-world attenuation scenarios. See `docs/validation.md` for the full technical discussion.
 
 See `docs/software.md` for the exact integration code and `docs/standards.md` for how the dominant frequency is applied in the threshold lookup matrix.
