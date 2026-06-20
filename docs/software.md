@@ -10,9 +10,7 @@
 | Website (demonstration) | HTML, JavaScript |
 | Data interchange | CSV (single shared file) |
 
-PULSE's software is made of exactly three components: `servidor.py` (the
-receiving server), `geonode_analyzer.py` (the processing engine and
-Tkinter dashboard), and a separate website.
+PULSE's software architecture is distributed across four decoupled environments: the MicroPython hardware firmware, `servidor.py` (the receiving ingestion server), `geonode_analyzer.py` (the mathematical processing engine and Tkinter dashboard), and a separate HTML/JS demonstration website.
 
 ## servidor.py — receiving server
 
