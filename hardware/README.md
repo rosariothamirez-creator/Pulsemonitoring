@@ -21,6 +21,9 @@ Digital Accelerometer ──(I2C/SPI)──> Raspberry Pi Pico ──(SPI)──
 * **Power Supply Unit (PSU):** **Switching Power Supply (SMPS)** – Regulates and converts grid voltage to a stable operating voltage required by the microcontroler and modules.
 * **Enclosure:** **3D Printed Case** – A custom-designed, compact housing to protect electronic components from environmental hazards and facilitate easy transportation.
 
+<img width="2048" height="1852" alt="image" src="https://github.com/user-attachments/assets/e183808c-88eb-4b68-88d0-627426d21cc4" />
+
+
 ### Design Objectives
 * **Cost-Efficiency:** Built using readily available, off-the-shelf components to minimize production barriers.
 * **Portability:** Compact footprint optimized for seamless deployment in tight or remote environments.
