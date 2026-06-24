@@ -60,7 +60,7 @@ export function SeismicProvider({ children }) {
     supabase
       .from('amostras')
       .select('evento_id, data_hora, ax_ms2, ay_ms2, az_ms2')
-      .order('id', { ascending: false })
+      .order('evento_id', { ascending: false })
       .limit(MAX_PONTOS)
       .then(({ data, error }) => {
         if (error) { console.error('[SUPABASE]', error); return }
