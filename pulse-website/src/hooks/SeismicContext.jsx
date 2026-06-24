@@ -40,6 +40,9 @@ export function SeismicProvider({ children }) {
   const [ultimoEvento,  setUltimo] = useState('—')
   const [erro,          setErro]   = useState(null)
 
+  // Guarda o último evento_id visto para não buscar duplicados
+  const ultimoIdRef = useRef(0)
+
   const adicionarAmostras = useCallback((novas) => {
     setDados((prev) => [
       ...prev,
@@ -65,6 +68,8 @@ export function SeismicProvider({ children }) {
       .then(({ data, error }) => {
         if (error) { console.error('[SUPABASE]', error); return }
         if (!data?.length) return
+        // Guarda o evento_id mais recente para o Realtime saber de onde continuar
+        ultimoIdRef.current = data[0].evento_id
         const hist = data.reverse().map((r) => ({
           evento_id: r.evento_id,
           t:         r.data_hora,
@@ -76,22 +81,34 @@ export function SeismicProvider({ children }) {
       })
   }, [adicionarAmostras])
 
-  // Realtime Supabase — substitui o SSE do Flask
+  // Realtime — só busca amostras mais recentes que a última vista
   useEffect(() => {
     const canal = supabase
       .channel('amostras-realtime')
       .on(
         'postgres_changes',
         { event: 'INSERT', schema: 'public', table: 'amostras' },
-        (payload) => {
-          const r = payload.new
-          adicionarAmostras([{
+        async () => {
+          const { data, error } = await supabase
+            .from('amostras')
+            .select('evento_id, data_hora, ax_ms2, ay_ms2, az_ms2')
+            .order('evento_id', { ascending: true })
+            .gt('evento_id', ultimoIdRef.current)
+            .limit(50)
+
+          if (error) { console.error('[SUPABASE REALTIME]', error); return }
+          if (!data?.length) return
+
+          // Atualiza o último id visto
+          ultimoIdRef.current = data[data.length - 1].evento_id
+
+          adicionarAmostras(data.map((r) => ({
             evento_id: r.evento_id,
             t:         r.data_hora,
             ax:        r.ax_ms2 ?? 0,
             ay:        r.ay_ms2 ?? 0,
             az:        r.az_ms2 ?? 0,
-          }])
+          })))
         }
       )
       .subscribe((status) => {
