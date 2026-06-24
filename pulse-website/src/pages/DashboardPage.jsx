@@ -100,6 +100,7 @@ function SismografoCanvas({ dados, eixo, cor, label }) {
       .map(d => {
         if (!d.t) return null
         const ts = new Date(d.t).getTime()
+        console.log('[CANVAS] t:', d.t, 'ts:', ts, 'agora:', Date.now(), 'segsAtras:', (Date.now() - ts) / 1000)
         if (isNaN(ts)) return null
         const segsAtras = (agora - ts) / 1000
         if (segsAtras < 0 || segsAtras > JANELA_S) return null

@@ -68,6 +68,7 @@ export function SeismicProvider({ children }) {
       .then(({ data, error }) => {
         if (error) { console.error('[SUPABASE]', error); return }
         if (!data?.length) return
+        console.log('[HISTÓRICO] primeiro registo:', data[0])
         // Guarda o evento_id mais recente para o Realtime saber de onde continuar
         ultimoIdRef.current = data[0].evento_id
         const hist = data.reverse().map((r) => ({
