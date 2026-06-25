@@ -4,7 +4,7 @@ import { Activity, ArrowLeft, Database, Cpu, Zap } from 'lucide-react'
 import { useSeismic } from '../hooks/SeismicContext'
 
 // ─── Configuração do sismógrafo ────────────────────────────────────────────────
-const JANELA_S  = 10     // segundos visíveis na janela
+const JANELA_S  = 5     // segundos visíveis na janela
 const Y_RANGE   = 10     // m/s² — metade da escala do eixo Y
 const DEADZONE  = 0.05    // m/s²
 
