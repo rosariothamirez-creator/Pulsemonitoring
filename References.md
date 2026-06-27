@@ -1,15 +1,15 @@
 ## References
 
 ### Software & Standards
-* [cite_start][Avaliação de Incomodidade Gerada por Vibrações - BS 6472-1](https://dbwave.pt/avaliacao-incomodidade-gerada-vibracoes-bs-6472-1/) [cite: 83]
-* [cite_start][BSI Code of Practice for Noise and Vibration Control on Construction and Open Sites - Part 2](https://www.leicestershire.gov.uk/sites/default/files/field/pdf/2021/9/14/TG18-BSI-Code-of-practice-for-noise-and-vibration-control-on-construction-and-open-sites-Part2.pdf) [cite: 84]
-* [cite_start][Escala de Richter ou Mercalli: Qual é a mais adequada para medir sismos?](https://www.tempo.pt/noticias/ciencia/escala-de-richter-para-ja-ou-mercalli-qual-e-a-mais-adequada-para-medir-terramotos-sismos.html) [cite: 85]
-* [cite_start][A Importância das Normas NP, ISO 2631-1/2:2007 e BS 6472-1](https://dbwave.pt/a-importancia-das-normas-np-iso-2631-12007-e-bs-6472-1/) [cite: 86]
-* [cite_start][A Norma Portuguesa NP 2074 de 2015](https://dbwave.pt/wp-content/uploads/2016/03/A-NP2074-de-2015.pdf) [cite: 87]
-* [cite_start][DIN 4150-3: Vibration Limits for Buildings](https://micromega-dynamics.com/din-4150-3-vibration-limits-buildings/) [cite: 88]
+* [cite_start][Avaliação de Incomodidade Gerada por Vibrações - BS 6472-1](https://dbwave.pt/avaliacao-incomodidade-gerada-vibracoes-bs-6472-1/) 
+* [cite_start][BSI Code of Practice for Noise and Vibration Control on Construction and Open Sites - Part 2](https://www.leicestershire.gov.uk/sites/default/files/field/pdf/2021/9/14/TG18-BSI-Code-of-practice-for-noise-and-vibration-control-on-construction-and-open-sites-Part2.pdf) 
+* [cite_start][Escala de Richter ou Mercalli: Qual é a mais adequada para medir sismos?](https://www.tempo.pt/noticias/ciencia/escala-de-richter-para-ja-ou-mercalli-qual-e-a-mais-adequada-para-medir-terramotos-sismos.html) 
+* [cite_start][A Importância das Normas NP, ISO 2631-1/2:2007 e BS 6472-1](https://dbwave.pt/a-importancia-das-normas-np-iso-2631-12007-e-bs-6472-1/) 
+* [cite_start][A Norma Portuguesa NP 2074 de 2015](https://dbwave.pt/wp-content/uploads/2016/03/A-NP2074-de-2015.pdf) 
+* [cite_start][DIN 4150-3: Vibration Limits for Buildings](https://micromega-dynamics.com/din-4150-3-vibration-limits-buildings/) 
 
 ### Hardware Components
-* [cite_start][Raspberry Pi Pico W with Wi-Fi](https://mauser.pt/095-0597/raspberry-pi-sc0918-microcontrolador-raspberry-pi-pico-w-c-wifi) [cite: 89]
-* [cite_start][Mean Well RS-15-5 - Industrial Power Supply 5VDC 3A 15W](https://mauser.pt/035-2961/mean-well-rs-15-5-fonte-de-alimentacao-industrial-5vdc-3a-15w) [cite: 90]
-* [cite_start][ADXL345 - Digital 3-Axis Accelerometer Module 16G](https://mauser.pt/096-0408/modulo-acelerometro-digital-3-eixos-16g-adxl-345) [cite: 91]
-* [cite_start][Micro SD Card Storage Module (SPI Interface)](https://www.worten.pt/produtos/cartoes-de-armazenamento-micro-sd-de-interface-spi-padrao-suportam-cartao-micro-sd-modulo-allinless-mrkean-6923041983818) [cite: 92]
+* [cite_start][Raspberry Pi Pico W with Wi-Fi](https://mauser.pt/095-0597/raspberry-pi-sc0918-microcontrolador-raspberry-pi-pico-w-c-wifi) 
+* [cite_start][Mean Well RS-15-5 - Industrial Power Supply 5VDC 3A 15W](https://mauser.pt/035-2961/mean-well-rs-15-5-fonte-de-alimentacao-industrial-5vdc-3a-15w) 
+* [cite_start][ADXL345 - Digital 3-Axis Accelerometer Module 16G](https://mauser.pt/096-0408/modulo-acelerometro-digital-3-eixos-16g-adxl-345) 
+* [cite_start][Micro SD Card Storage Module (SPI Interface)](https://www.worten.pt/produtos/cartoes-de-armazenamento-micro-sd-de-interface-spi-padrao-suportam-cartao-micro-sd-modulo-allinless-mrkean-6923041983818) 
