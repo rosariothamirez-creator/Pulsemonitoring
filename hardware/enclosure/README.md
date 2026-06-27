@@ -1,25 +1,25 @@
 #### 3D Design & Final Enclosure
 
-O desenvolvimento mecânico do PULSE foi inteiramente modelado no Autodesk Fusion, garantindo proteção e acomodação exata de todos os componentes eletrónicos.
+The mechanical development of PULSE was entirely modeled in Autodesk Fusion, ensuring the protection and precise accommodation of all electronic components.
 
-**Visão Geral: Autodesk Fusion vs. Protótipo Final**
+**Overview: Autodesk Fusion vs. Final Prototype**
 
-![Visão Geral do Protótipo](imagem1.png)
-
-
-**Mecânica de Fecho**
-O sistema de fecho foi desenvolvido sem parafusos, usando um encaixe por interferência entre a tampa e o corpo da caixa.
-
-![Mecânica de Fecho](imagem2.png)
+![Prototype Overview](imagem1.png)
 
 
-**Suporte Interno do Acelerómetro**
-Para garantir a integridade do sinal sísmico, o acelerómetro é fixado no interior da caixa através de um suporte rígido com roscas e parafusos.
+**Closing Mechanism**
+The closing system was developed without screws, utilizing an interference fit between the lid and the enclosure body.
 
-![Suporte Interno do Acelerómetro](imagem3.png)
+![Closing Mechanism](imagem2.png)
 
 
-**Fixação ao Terreno (Acoplamento Acústico)**
-Para uma leitura precisa das vibrações no solo, foram implementados espigões de suporte de canal, que passam diretamente pela base da caixa e servem de extensão acústica da caixa.
+**Internal Accelerometer Mount**
+To ensure the integrity of the seismic signal, the accelerometer is secured inside the enclosure using a rigid mount with threads and screws.
 
-![Fixação ao Terreno](imagem4.png)
+![Internal Accelerometer Mount](imagem3.png)
+
+
+**Ground Anchoring (Acoustic Coupling)**
+For accurate reading of ground vibrations, coupling spikes were implemented. These pass directly through the base of the enclosure and serve as its acoustic extension.
+
+![Ground Anchoring](imagem4.png)
