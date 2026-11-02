@@ -68,4 +68,11 @@ The pipeline avoids continuous streaming bottlenecks by utilizing batched event 
 
 ## Authors
 **Afonso Geraldes; Catalin Calin; Colin Pontes; Daméin Kosta; Diogo Vieira; Edmila Zanga; Lucas Manso; Martim Pereira; Pedro Gama; Thamirez do Rosário**
+
+### My Contribution (Daméin Kosta)
+Within the scope of this multidisciplinary project, my primary focus and contribution centered on the data pipeline and backend infrastructure, specifically:
+- Development of the Python (Flask) ingestion server for telemetry data.
+- Implementation of the data structuring and processing pipelines using Pandas and NumPy.
+- Hardware-software integration for real-time sensor communication.
+
 ### Developed as part of the Integrated Project in Mining and Energy Resources Engineering at **Instituto Superior Técnico (IST)**.
